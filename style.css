@@ -1,205 +1,195 @@
 /* Apply custom fonts */
 body {
-    font-family: 'Merriweather', serif; /* Serif for body text */
-    background-color: #ffffff; /* White background */
+    font-family: 'Merriweather', serif;
+    background-color: #ffffff;
     color: #333;
-    font-size: 16px; /* Base font size */
-    line-height: 1.7; /* Increase line height for readability */
+    font-size: 16px;
+    line-height: 1.7;
 }
 
-h1, h2 { /* Main Site Title and Day Number */
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
 }
+.font-lato { font-family: 'Lato', sans-serif; }
+html { scroll-behavior: smooth; }
 
-h3, h4, h5, h6 { /* Sub-headers and smaller headings */
-     font-family: 'Playfair Display', serif; /* Keep serif for consistency */
-}
-
-/* Specific font for nav and metadata */
-.font-lato {
-    font-family: 'Lato', sans-serif;
-}
-
-/* Smooth scrolling for anchor links */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Styling for links */
-a {
-    color: #8B4513; /* Saddle Brown */
+/* Styling for ALL links (except where overridden by more specific selectors) */
+body a { /* Increased specificity to override potential Tailwind base styles */
+    color: #A0522D; /* Sienna - for immediate visibility */
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
-a:hover {
-    color: #A0522D; /* Sienna */
+body a:hover {
+    color: #8B4513; /* Darker Saddle Brown */
     text-decoration: underline;
 }
 
-/* Header Navigation */
-.header-nav a {
+/* Header & Navigation */
+header {
+    position: sticky; /* Ensures header stays at the top */
+    top: 0;
+    z-index: 50; /* Keeps header above other content */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+/* Styles for the hamburger button SVG */
+.header-nav-mobile-button svg {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+}
+/* Styling for the mobile menu panel itself */
+#mobile-menu-panel { /* Targeting the panel directly by ID */
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+/* Styling for list items in the main navigation */
+header nav ul li { /* More specific for desktop nav items */
+     margin: 0 0.5rem;
+}
+
+/* Styling for DESKTOP navigation links */
+header nav a.nav-link {
     font-family: 'Lato', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    color: #555;
+    font-size: 0.875rem; /* 14px */
+    padding: 0.75rem 1rem; /* 12px 16px */
+    color: #555; /* Subdued color for nav links */
     font-weight: 700;
+    /* display: block; is NOT needed here, flex on UL handles layout */
 }
 
-.header-nav a:hover {
-    color: #000;
+/* Styling for MOBILE navigation links (Tailwind classes also apply) */
+#mobile-menu-panel a.nav-link {
+    font-family: 'Lato', sans-serif; /* Consistency */
+    text-transform: uppercase; /* Consistency */
+    letter-spacing: 0.1em; /* Consistency */
+    /* Tailwind's 'block px-3 py-2 rounded-md text-base font-medium text-gray-700' handles the rest */
+}
+
+
+/* Hover and active states for navigation links */
+header nav a.nav-link:hover,
+#mobile-menu-panel a.nav-link:hover,
+header nav a.nav-link.active-day-link,
+#mobile-menu-panel a.nav-link.active-day-link {
+    color: #000; /* Darker color on hover/active */
     text-decoration: none;
 }
-
-/* Horizontal Rule Styling */
-hr.section-divider {
-    border: none;
-    height: 1px;
-    background-color: #e5e7eb; /* Light gray */
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+header nav a.nav-link.active-day-link, /* Desktop active link */
+#mobile-menu-panel a.nav-link.active-day-link /* Mobile active link */ {
+    background-color: #f0f0f0; /* Light grey highlight */
+    border-radius: 4px;
 }
 
- hr.subsection-divider {
-    border: none;
-    height: 1px;
-    background-color: #e5e7eb; /* Light gray */
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
- }
 
-/* Styling for date/metadata */
+hr.section-divider, hr.subsection-divider {
+    border: none; height: 1px; background-color: #e5e7eb; margin-bottom: 1.5rem;
+}
+hr.section-divider { margin-top: 0.5rem; }
+hr.subsection-divider { margin-top: 1.5rem; }
+
 .metadata {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.875rem;
-    color: #6b7280; /* Gray-500 */
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: 'Lato', sans-serif; font-size: 0.875rem; color: #6b7280;
+    margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;
 }
 
-/* Day Section Heading Styles */
-.day-heading { /* For "Day X" */
-     font-size: 3.5rem; /* Larger */
-     font-weight: 700;
-     margin-bottom: 0.25rem;
-     line-height: 1.1;
+.day-heading {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    margin-bottom: 0.25rem; line-height: 1.1;
+    font-size: 2.25rem; /* Base mobile size */
+}
+@media (min-width: 640px) { /* sm */
+    .day-heading { font-size: 2.75rem; }
+}
+@media (min-width: 768px) { /* md */
+    .day-heading { font-size: 3.25rem; }
+}
+@media (min-width: 1024px) { /* lg */
+    .day-heading { font-size: 3.5rem; }
 }
 
-.day-subheading { /* For descriptive title */
-     font-size: 1.75rem; /* Smaller than Day X */
-     font-weight: 700;
-     margin-bottom: 0.5rem;
-     color: #4b5563; /* Gray-600 */
+
+.placeholder-img {
+    background-color: #e2e8f0; display: block; border-radius: 0.25rem;
+    aspect-ratio: 16 / 9; width: 100%; height: auto; object-fit: cover;
+    margin-top: 1.5rem; margin-bottom: 1.5rem;
 }
 
-/* Style for placeholder images (now actual images) */
-.placeholder-img { /* Keep class name for consistency, applies to the images */
-    background-color: #e2e8f0; /* Fallback background */
-    display: block; /* Ensure it behaves like a block */
-    border-radius: 0.25rem; /* Slightly less rounded */
-    aspect-ratio: 16 / 9; /* Wider aspect ratio */
-    width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure image covers the area */
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Sidebar styling */
-.sidebar h3 { /* Section titles in sidebar */
-    font-family: 'Lato', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+.sidebar h3 {
+    font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem;
     border-bottom: 2px solid #e5e7eb;
 }
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar li { margin-bottom: 0.75rem; font-size: 0.9rem; }
+.sidebar strong { font-family: 'Lato', sans-serif; font-weight: 700; }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar li {
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-}
-
-.sidebar strong {
-     font-family: 'Lato', sans-serif;
-     font-weight: 700;
-}
-
-/* Tip box styling adapted for sidebar */
 .tip-box-sidebar {
-     background-color: #f8f7f2; /* Off-white background */
-     border: 1px solid #e5e7eb;
-     padding: 1.25rem; /* Adjusted padding */
-     margin-bottom: 1.5rem;
-     border-radius: 0.25rem;
-     font-size: 0.9rem;
+    background-color: #f8f7f2; border: 1px solid #e5e7eb; padding: 1.25rem;
+    margin-bottom: 1.5rem; border-radius: 0.25rem; font-size: 0.9rem;
+}
+.tip-box-sidebar h4 {
+    font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0;
+    margin-bottom: 0.75rem; color: #333;
+}
+.tip-box-sidebar ul { list-style: disc; list-style-position: inside; padding-left: 0; margin-top: 0.5rem; }
+.tip-box-sidebar li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+.suggestion-box {
+    border: 1px solid #e5e7eb; border-radius: 0.25rem; padding: 1rem;
+    margin-top: 1rem; margin-bottom: 1rem; background-color: #fafafa;
+}
+.suggestion-box h5 {
+    font-family: 'Lato', sans-serif; font-size: 1.1rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; color: #333333;
+    margin-bottom: 0.5rem; line-height: 1.4;
+}
+.suggestion-box h5 a {
+    font-weight: 700;
 }
 
- .tip-box-sidebar h4 { /* Tip box titles */
-    font-family: 'Lato', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    color: #333;
- }
+.suggestion-box p { margin-bottom: 0.25rem; font-size: 0.95rem; }
+.suggestion-box .popular-dishes { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+.antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
- .tip-box-sidebar ul {
-     list-style: disc;
-     list-inside: inside;
-     padding-left: 0; /* Reset padding */
-     margin-top: 0.5rem;
- }
+#backToTopBtn {
+    display: none; position: fixed; bottom: 20px; right: 20px;
+    z-index: 99; background-color: #C47A3E; color: white;
+    border: none; border-radius: 50%; width: 40px; height: 40px;
+    font-size: 1.25rem; line-height: 40px; text-align: center;
+    cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: opacity 0.3s, visibility 0.3s;
+}
+#backToTopBtn:hover { background-color: #8B4513; }
 
- .tip-box-sidebar li {
-     margin-bottom: 0.5rem;
-     line-height: 1.6;
- }
+.option-box {
+    border-left: 4px solid #A0522D;
+    padding-left: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: #fdfbf7;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.option-box h4 {
+     margin-top:0;
+}
 
- /* Restaurant/Bar Suggestion Styling */
- .suggestion-box {
-     border: 1px solid #e5e7eb;
-     border-radius: 0.25rem;
-     padding: 1rem;
-     margin-top: 1rem;
-     margin-bottom: 1rem;
-     background-color: #fafafa; /* Very light gray */
- }
-
- .suggestion-box h5 { /* Primary/Backup labels */
-     font-family: 'Lato', sans-serif;
-     font-size: 0.8rem;
-     font-weight: 700;
-     text-transform: uppercase;
-     letter-spacing: 0.05em;
-     color: #6b7280; /* Gray-500 */
-     margin-bottom: 0.25rem;
- }
-
- .suggestion-box p {
-     margin-bottom: 0.25rem;
-     font-size: 0.95rem;
- }
-
- .suggestion-box .popular-dishes {
-     font-size: 0.85rem;
-     color: #4b5563; /* Gray-600 */
-     font-style: italic;
- }
-
- /* Add Tailwind utility classes if needed for elements not covered by Tailwind CDN */
- /* For example: */
- /* .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } */
- /* Note: Tailwind CDN should handle most utility classes automatically */
+@media print {
+    body { font-size: 12pt; color: #000; background-color: #fff; }
+    header, footer, #backToTopBtn, .sidebar, .main-banner-image, .placeholder-img {
+        display: none !important;
+    }
+    main { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    .md\:grid { display: block !important; }
+    .md\:col-span-2 { width: 100% !important; }
+    .max-w-6xl, .max-w-full { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    .p-6, .md\:p-10, .px-4 { padding: 0 !important; }
+    a { color: #000 !important; text-decoration: none !important; }
+    .suggestion-box { border: 1px solid #ccc !important; page-break-inside: avoid; }
+    .day-heading { font-size: 20pt !important; margin-top: 20pt; }
+    .day-subheading { font-size: 16pt !important; }
+}
